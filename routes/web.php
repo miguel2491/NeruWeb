@@ -85,3 +85,5 @@ Route::put('video/update/{id}', 'VR\VirtualRController@update');
 Route::delete('video/delete/{id}', 'VR\VirtualRController@destroy');
 //
 Route::get('pago', 'VR\VirtualRController@pagos');
+Route::get('pago/listado/{email}', 'VR\PagosController@listado');
+Route::put('pago/actualizar/{id}', 'VR\PagosController@update');
