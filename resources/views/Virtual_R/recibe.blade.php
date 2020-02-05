@@ -109,6 +109,5 @@
 	<script src="{{ asset('js/plugins/autonumeric/autoNumeric.js') }}"></script>
 	<script src="{{ asset('js/plugins/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
 	<script src="{{ asset('js/plugins/summernote/summernote.min.js') }}"></script>
-	
-	<script src="{{ asset('js/VR/pagos/pagos.js') }}"></script>
+	<script src="{{ asset('js/VR/pagos/pagos2.js') }}"></script>
 @endsection

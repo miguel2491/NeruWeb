@@ -17,7 +17,7 @@ class PagosController extends Controller {
 	public function recibe() {
 		return view('Virtual_R.recibe');
 	}
-
+	
 	public function update(Request $request, $id) {
 		$cat_cuenta = Usuarios::findOrFail($id);
 		$cat_cuenta->fill($request->all());
@@ -49,6 +49,7 @@ class PagosController extends Controller {
 		$results = DB::table('users')->where('email', $email)->get();
 		
 		return response()->json($results);
+			
 	}
 
 
