@@ -16,8 +16,8 @@
         $cantidad=$array['results'][0]['transaction_details']['total_paid_amount'];
        
      
-        //$mail=$array['results'][0]['collector']['email'];
-        $mail="susylaonda94@gmail.com";
+        $mail=$array['results'][0]['collector']['email'];
+        //$mail="susylaonda94@gmail.com";
         //se valida el status de pago
         
         $hoy = getdate();
