@@ -1,10 +1,15 @@
 <?php 
     //id de prueba
     //$id="5819816429"; 
-    $id=$_GET['collection_id'];//el folio se obtiene con un get
+        $id=$_GET['collection_id'];//el folio se obtiene con un get
    
-        //url de consulta
-        $url='https://api.mercadopago.com/v1/payments/search?id='.$id.'&access_token=APP_USR-104262097525406-121106-97d90022f6c0f656c2f1be7c476f7b55-499279878';
+        //url de consulta test
+        //$url='https://api.mercadopago.com/v1/payments/search?id='.$id.'&access_token=APP_USR-104262097525406-121106-97d90022f6c0f656c2f1be7c476f7b55-499279878';
+        
+        //url de consulta neru botones
+        $url='https://api.mercadopago.com/v1/payments/search?id='.$id.'&access_token=APP_USR-7626992358892349-011717-eca4e780bea376ff5859b1ac90ab739a-331107277';
+        
+        
         $array=json_decode(file_get_contents($url),true);
         //se extraen los valores status, folio y mail del cliente
         $status=$array['results'][0]['status'];
@@ -54,10 +59,11 @@
     //funcion actualizar pago
     function update_pago($id,$mail,$status,$cantidad,$fecha){
         //tal vez tengas que modificar los datos de la bdd
-        $us = "root";
-        $pw = "";
+        $us = "wwwnerup_app";
+        $pw = "U1y(T&ZW%urJ";
         $ser = "localhost";
-        $db = "db_neru";
+        $db = "wwwnerup_neruapp";
+        $con = new mysqli($ser, $us, $pw, $db);
 
         $con = new mysqli($ser, $us, $pw, $db);
         $sql2="UPDATE users SET stado_pago = '$status', `folio_pago` = '$id' WHERE `users`.`email` = '$mail'";
@@ -70,16 +76,16 @@
         }
         else {
             insert($id,$cantidad,$fecha,$status);
-            echo '<script language="javascript">alert("Estatus actualizado");</script>';
         }
     }
 
     //funcion inserta tabla pagos
     function insert($id,$cantidad,$fecha,$status){
-        $us = "root";
-        $pw = "";
+        $us = "wwwnerup_app";
+        $pw = "U1y(T&ZW%urJ";
         $ser = "localhost";
-        $db = "db_neru";
+        $db = "wwwnerup_neruapp";
+        $con = new mysqli($ser, $us, $pw, $db);
 
         $con = new mysqli($ser, $us, $pw, $db);
         $sql3="INSERT INTO pagos (id_pago, monto, fecha_pago, estatus) VALUES ('$id', '$cantidad', '$fecha', '$status')"; 
@@ -91,8 +97,8 @@
             exit;
         }
         else {
-            echo '<script language="javascript">alert("Estatus actualizado");</script>';
-            header("Location: https://nerupsicologia.com/app/public/");
+            echo '<script language="javascript">alert("Cuenta actualizado");</script>';
+            header("Location: https://www.nerupsicologia.com/oficial/");
             
         }
 
@@ -100,11 +106,12 @@
     //valida el correo de pago con el de la bdd
     function validar($status,$mail,$id,$cantidad,$fecha){
         //datos de conexión
-        $us = "root";
-        $pw = "";
+        $us = "wwwnerup_app";
+        $pw = "U1y(T&ZW%urJ";
         $ser = "localhost";
-        $db = "db_neru";
+        $db = "wwwnerup_neruapp";
         $con = new mysqli($ser, $us, $pw, $db);
+       
         //validamos que no haya error en la conexion
         if ($con->connect_errno) {
             echo "Error: Fallo al conectarse a MySQL debido a: \n";
@@ -164,10 +171,6 @@
                         </div>
                     </div>
 
-                    
-
-                    
-
                 <?php
                 }
                 else {
@@ -214,4 +217,3 @@
 
     
 </script>
-

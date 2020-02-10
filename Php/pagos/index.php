@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="client/client.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -42,7 +40,7 @@
       </p>
 
 
-      <!-- Botón Test-->
+      <!-- Botón para la aplicación-->
       <h4>Botones Neru</h4>
       <h3>Mensualidad</h3>
       <a mp-mode="dftl" href="https://www.mercadopago.com.mx/checkout/v1/redirect?pref_id=331107277-0f85f42c-999f-4faa-becb-8164c95e9cd6" name="MP-payButton" class='blue-ar-l-rn-none'>Pagar</a>
@@ -51,11 +49,13 @@
       </script>
 
 
+
       <h3>Semestral</h3>
       <a mp-mode="dftl" href="https://www.mercadopago.com.mx/checkout/v1/redirect?pref_id=331107277-d6d63364-8d89-4d2e-b57f-c556f1edca53" name="MP-payButton" class='blue-ar-l-rn-none'>Pagar</a>
       <script type="text/javascript">
       (function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
       </script>
+
 
 
 

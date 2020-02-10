@@ -11,10 +11,10 @@
        
         //efectuamos consulta
         //tal vez tengas que modificar los datos de la bdd
-        $us = "root";
-        $pw = "";
+        $us = "wwwnerup_app";
+        $pw = "U1y(T&ZW%urJ";
         $ser = "localhost";
-        $db = "db_neru";
+        $db = "wwwnerup_neruapp";
         $con = new mysqli($ser, $us, $pw, $db);
         $sql    = "SELECT * FROM `users` WHERE `email` = '$correo'";
         //descartamos errores en la consulta
@@ -43,10 +43,10 @@
     }
     //funcion actualizar
     function update_pago($id,$mail,$status,$cantidad,$fecha){
-        $us = "root";
-        $pw = "";
+        $us = "wwwnerup_app";
+        $pw = "U1y(T&ZW%urJ";
         $ser = "localhost";
-        $db = "db_neru";
+        $db = "wwwnerup_neruapp";
         $con = new mysqli($ser, $us, $pw, $db);
 
         $con = new mysqli($ser, $us, $pw, $db);
@@ -60,16 +60,17 @@
         }
         else {
             insert($id,$cantidad,$fecha,$status);
-            echo '<script language="javascript">alert("Cuenta actualizado");</script>';
+            
         }
     }
 
         //funcion inserta tabla pagos
         function insert($id,$cantidad,$fecha,$status){
-            $us = "root";
-            $pw = "";
+            $us = "wwwnerup_app";
+            $pw = "U1y(T&ZW%urJ";
             $ser = "localhost";
-            $db = "db_neru";
+            $db = "wwwnerup_neruapp";
+            $con = new mysqli($ser, $us, $pw, $db);
     
             $con = new mysqli($ser, $us, $pw, $db);
             $sql3="INSERT INTO pagos (id_pago, monto, fecha_pago, estatus) VALUES ('$id', '$cantidad', '$fecha', '$status')"; 
@@ -81,8 +82,8 @@
                 exit;
             }
             else {
-                echo '<script language="javascript">alert("Estatus actualizado");</script>';
-                header("Location: https://nerupsicologia.com/app/public/");
+                echo '<script language="javascript">alert("Cuenta actualizado");</script>';
+                header("Location: https://www.nerupsicologia.com/oficial/");
             }
     
         }
