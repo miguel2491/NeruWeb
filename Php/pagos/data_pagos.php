@@ -16,7 +16,7 @@
         $cantidad=$array['results'][0]['transaction_details']['total_paid_amount'];
        
      
-        $mail=$array['results'][0]['collector']['email'];
+        $mail=$array['results'][0]['payer']['email'];
         //$mail="susylaonda94@gmail.com";
         //se valida el status de pago
         
@@ -42,7 +42,7 @@
         $fecha= $ano."-".$mes."-".$dia;
         $hora= $hr.":".$min.":".$sec;
 
-        $fecha=$fecha." ".$hora;
+        //$fecha=$fecha." ".$hora;
         
 
         if($status=="approved" || $status=="aprobado"){
@@ -67,7 +67,7 @@
         $con = new mysqli($ser, $us, $pw, $db);
 
         $con = new mysqli($ser, $us, $pw, $db);
-        $sql2="UPDATE users SET stado_pago = '$status', `folio_pago` = '$id' WHERE `users`.`email` = '$mail'";
+        $sql2="UPDATE users SET stado_pago = '$status', folio_pago = '$id' WHERE users.email = '$mail'";
         if (!$resultado = $con->query($sql2)) {
             echo "Error: La ejecución de la consulta falló debido a: \n";
             echo "Query: " . $sql2 . "\n";

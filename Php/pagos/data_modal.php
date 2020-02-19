@@ -33,9 +33,9 @@
             }
             else {
                 //si regresa data actualizamos el estatus y la los datos en la bdd
-                $status="1";
+               
                 
-                update_pago($id,$mail,$status,$cantidad,$fecha);
+                update_pago($id,$correo,$status,$cantidad,$fecha);
                 echo '<script language="javascript">alert("Cuenta actualizada");</script>';
                 
             }
@@ -43,7 +43,7 @@
         }
     }
     //funcion actualizar
-    function update_pago($id,$mail,$status,$cantidad,$fecha){
+    function update_pago($id,$correo,$status,$cantidad,$fecha){
         $us = "wwwnerup_app";
         $pw = "U1y(T&ZW%urJ";
         $ser = "localhost";
@@ -51,7 +51,7 @@
         $con = new mysqli($ser, $us, $pw, $db);
 
         $con = new mysqli($ser, $us, $pw, $db);
-        $sql2="UPDATE users SET stado_pago = '$status', `folio_pago` = '$id' WHERE `users`.`email` = '$mail'";
+        $sql2="UPDATE users SET stado_pago = '$status', `folio_pago` = '$id' WHERE `users`.`email` = '$correo'";
         if (!$resultado = $con->query($sql2)) {
             echo "Error: La ejecución de la consulta falló debido a: \n";
             echo "Query: " . $sql2 . "\n";
