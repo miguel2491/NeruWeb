@@ -49,13 +49,14 @@
             //si es positivo se cambia el valor de estaus
             $status="1";
             //se valida que el mail del pago sea igual que el de la bdd
-            validar($status,$mail,$id,$cantidad,$fecha);
+            
         }
         else {
             //en caso del que pago no sea aprobado se actualiza el estus y el registro en al bdd
             $status="0";
             //update_pago($id,$mail,$status);
         }
+        validar($status,$mail,$id,$cantidad,$fecha);
     //funcion actualizar pago
     function update_pago($id,$mail,$status,$cantidad,$fecha){
         //tal vez tengas que modificar los datos de la bdd
@@ -136,40 +137,47 @@
                 //el form esta en obra negra
                 if ($resultado->num_rows === 0) {
                     ?>
-                    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="text-align: center;">
-                        <div class="modal-dialog modal-dialog-centered " role="document">
-                            <div class="modal-content ">
-                                <div class="modal-header text-center">
-                                    <h5 class="modal-title " id="exampleModalCenterTitle">El correo de pago no coincide con nuestros registros.</h5>
 
-                                </div>
-                                <div class="modal-body">
+                    <body style="background-color: red;">
+                        <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="text-align: center;">
+                            <div class="modal-dialog modal-dialog-centered " role="document">
+                                <div class="modal-content ">
+                                    <div class="modal-header text-center">
+                                        <h5 class="modal-title " id="exampleModalCenterTitle">El correo de pago no coincide con nuestros registros.</h5>
 
-                                    <form action="data_modal.php" method="POST" >
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Introduce tu correo de NERU</label>
-                                            <input type="email" class="form-control" id="re_correo" name="re_correo" placeholder="tucorreoelectrónico@server.com">
-                                            <input type="hidden" class="form-control" id="id" name="id" value='<?php echo $id;?>'>
-                                            <input type="hidden" class="form-control" id="estatus" name="estatus" value='<?php echo $status;?>'>
-                                            <input type="hidden" class="form-control" id="monto" name="monto" value='<?php echo $cantidad;?>'>' 
-                                            <input type="hidden" class="form-control" id="fecha" name="fecha" value='<?php echo $fecha;?>'>'                                           
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form action="data_modal.php" method="POST" >
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Introduce tu correo de NERU</label>
+                                                <input type="email" class="form-control" id="re_correo" name="re_correo" placeholder="tucorreoelectrónico@server.com">
+                                                <input type="hidden" class="form-control" id="id" name="id" value='<?php echo $id;?>'>
+                                                <input type="hidden" class="form-control" id="estatus" name="estatus" value='<?php echo $status;?>'>
+                                                <input type="hidden" class="form-control" id="monto" name="monto" value='<?php echo $cantidad;?>'>' 
+                                                <input type="hidden" class="form-control" id="fecha" name="fecha" value='<?php echo $fecha;?>'>'                                           
+                                                <hr>
+                                                <button type="submit" class="btn btn-danger" name="aceptar">Aceptar</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal" name="Cancelar">Cancelar</button>
+                                        
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer " >
+                                        <div class="col">
+                                           
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer " >
-                                    <div class="col">
-                                        <button type="button" class="btn btn-danger"data-dismiss="modal" >Aceptar</button>
+                                        <div class="col">
+                                            
+                                        </div>
                                     
                                     </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                    
-                                    </div>
-                                
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </body>
+                    
 
                 <?php
                 }
@@ -199,12 +207,7 @@
     
 </head>
 
-<body style="background-color: red;">
-    
 
-
-
-</body>
 
 </html>
 

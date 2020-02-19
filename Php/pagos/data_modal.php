@@ -1,12 +1,13 @@
 
 <?php
     //se obtienen los datos del modal
-    if (isset($_GET['aceptar'])) {
-        $correo=$_GET['re_correo'];
-        $id=$_GET['id'];
-        $status=$_GET['estatus'];
-        $monto=$_GET['monto'];
-        $fecha=$_GET['fecha'];
+    if (isset($_POST['aceptar'])) {
+        
+        $correo=$_POST['re_correo'];
+        $id=$_POST['id'];
+        $status=$_POST['estatus'];
+        $cantidad=$_POST['monto'];
+        $fecha=$_POST['fecha'];
         //query de email de pago en la bdd 
        
         //efectuamos consulta
@@ -35,7 +36,7 @@
                 $status="1";
                 
                 update_pago($id,$mail,$status,$cantidad,$fecha);
-                echo '<script language="javascript">alert("Estatus actualizado");</script>';
+                echo '<script language="javascript">alert("Cuenta actualizada");</script>';
                 
             }
            
@@ -82,8 +83,8 @@
                 exit;
             }
             else {
-                echo '<script language="javascript">alert("Cuenta actualizado");</script>';
-                header("Location: https://www.nerupsicologia.com/oficial/");
+                echo '<script language="javascript">alert("Cuenta actualizada");</script>';
+                header("Location: https://www.nerupsicologia.com/oficial");
             }
     
         }
