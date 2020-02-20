@@ -1,6 +1,6 @@
 <?php 
     //id de prueba
-    //$id="5819816429"; 
+        //$id="5958266171"; 
         $id=$_GET['collection_id'];//el folio se obtiene con un get
    
         //url de consulta test
@@ -14,8 +14,6 @@
         //se extraen los valores status, folio y mail del cliente
         $status=$array['results'][0]['status'];
         $cantidad=$array['results'][0]['transaction_details']['total_paid_amount'];
-       
-     
         $mail=$array['results'][0]['payer']['email'];
         //$mail="susylaonda94@gmail.com";
         //se valida el status de pago
@@ -54,89 +52,24 @@
         else {
             //en caso del que pago no sea aprobado se actualiza el estus y el registro en al bdd
             $status="0";
-            //update_pago($id,$mail,$status);
         }
-        validar($status,$mail,$id,$cantidad,$fecha);
-    //funcion actualizar pago
-    function update_pago($id,$mail,$status,$cantidad,$fecha){
-        //tal vez tengas que modificar los datos de la bdd
-        $us = "wwwnerup_app";
-        $pw = "U1y(T&ZW%urJ";
-        $ser = "localhost";
-        $db = "wwwnerup_neruapp";
-        $con = new mysqli($ser, $us, $pw, $db);
+        actualizar_pagos($status,$mail,$id,$cantidad,$fecha);
+        
 
-        $con = new mysqli($ser, $us, $pw, $db);
-        $sql2="UPDATE users SET stado_pago = '$status', folio_pago = '$id' WHERE users.email = '$mail'";
-        if (!$resultado = $con->query($sql2)) {
-            echo "Error: La ejecución de la consulta falló debido a: \n";
-            echo "Query: " . $sql2 . "\n";
-            echo "Errno: " . $con->errno . "\n";
-            echo "Error: " . $con->error . "\n";
-            exit;
-        }
-        else {
-            insert($id,$cantidad,$fecha,$status);
-        }
-    }
-
-    //funcion inserta tabla pagos
-    function insert($id,$cantidad,$fecha,$status){
-        $us = "wwwnerup_app";
-        $pw = "U1y(T&ZW%urJ";
-        $ser = "localhost";
-        $db = "wwwnerup_neruapp";
-        $con = new mysqli($ser, $us, $pw, $db);
-
-        $con = new mysqli($ser, $us, $pw, $db);
-        $sql3="INSERT INTO pagos (id_pago, monto, fecha_pago, estatus) VALUES ('$id', '$cantidad', '$fecha', '$status')"; 
-        if (!$resultado = $con->query($sql3)) {
-            echo "Error: La ejecución de la consulta falló debido a: \n";
-            echo "Query: " . $sql3 . "\n";
-            echo "Errno: " . $con->errno . "\n";
-            echo "Error: " . $con->error . "\n";
-            exit;
-        }
-        else {
-            echo '<script language="javascript">alert("Cuenta actualizado");</script>';
-            header("Location: https://www.nerupsicologia.com/oficial/");
-            
-        }
-
-    }
-    //valida el correo de pago con el de la bdd
-    function validar($status,$mail,$id,$cantidad,$fecha){
-        //datos de conexión
-        $us = "wwwnerup_app";
-        $pw = "U1y(T&ZW%urJ";
-        $ser = "localhost";
-        $db = "wwwnerup_neruapp";
-        $con = new mysqli($ser, $us, $pw, $db);
-       
-        //validamos que no haya error en la conexion
-        if ($con->connect_errno) {
-            echo "Error: Fallo al conectarse a MySQL debido a: \n";
-            echo "Errno: " . $con->connect_errno . "\n";
-            echo "Error: " . $con->connect_error . "\n";
-        }
-        else {
-            //
-            // $mail="susylaonda94@gmail.com";correo de prueba bdd
-            //el mail de pago se busca en la bdd
-            $sql = "SELECT * from users where email='$mail'";
-            //se valida que no haya errores en la consulta
-            if (!$resultado = $con->query($sql)) {
-                echo "Error: La ejecución de la consulta falló debido a: \n";
-                echo "Query: " . $sql . "\n";
-                echo "Errno: " . $con->errno . "\n";
-                echo "Error: " . $con->error . "\n";
-                
+        function actualizar_pagos($status,$mail,$id,$cantidad,$fecha){
+            $valor_busqueda=validar($mail);
+            if ($valor_busqueda==true) {
+                insert($id,$cantidad,$fecha,$status,$mail);
             }
-            else {
-                //si el mail no existe en la bdd se solicita que ingrese el correo de logue de neru
-                //el form esta en obra negra
-                if ($resultado->num_rows === 0) {
-                    ?>
+            else{
+                form_data($status,$id,$cantidad,$fecha);
+            }
+        }
+
+        
+
+        function form_data($status,$id,$cantidad,$fecha){
+            ?>
 
                     <body style="background-color: red;">
                         <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="text-align: center;">
@@ -180,10 +113,94 @@
                     
 
                 <?php
+
+        }
+
+    //funcion actualizar pago
+    function update_pago($status,$id,$mail){
+        //tal vez tengas que modificar los datos de la bdd
+        $us = "wwwnerup_app";
+        $pw = "U1y(T&ZW%urJ";
+        $ser = "localhost";
+        $db = "wwwnerup_neruapp";
+        $con = new mysqli($ser, $us, $pw, $db);
+
+        $con = new mysqli($ser, $us, $pw, $db);
+        $sql2="UPDATE users SET stado_pago = '$status', folio_pago = '$id' WHERE users.email = '$mail'";
+        if (!$resultado = $con->query($sql2)) {
+            echo "Error: La ejecución de la consulta falló debido a: \n";
+            echo "Query: " . $sql2 . "\n";
+            echo "Errno: " . $con->errno . "\n";
+            echo "Error: " . $con->error . "\n";
+            exit;
+        }
+        else {
+            
+            echo '<script language="javascript">alert("Cuenta actualizado. Regresa a NeruApp y entra a Menú");</script>';
+            header("Location: https://www.nerupsicologia.com/oficial/");
+        }
+    }
+
+    //funcion inserta tabla pagos
+    function insert($id,$cantidad,$fecha,$status,$mail){
+        $us = "wwwnerup_app";
+        $pw = "U1y(T&ZW%urJ";
+        $ser = "localhost";
+        $db = "wwwnerup_neruapp";
+        $con = new mysqli($ser, $us, $pw, $db);
+
+        $con = new mysqli($ser, $us, $pw, $db);
+        $sql3="INSERT INTO pagos (id_pago, monto, fecha_pago, estatus,correo) VALUES ('$id', '$cantidad', '$fecha', '$status', '$mail')"; 
+        if (!$resultado = $con->query($sql3)) {
+            echo "Error: La ejecución de la consulta falló debido a: \n";
+            echo "Query: " . $sql3 . "\n";
+            echo "Errno: " . $con->errno . "\n";
+            echo "Error: " . $con->error . "\n";
+            exit;
+        }
+        else {
+            update_pago($status,$id,$mail);
+            
+        }
+
+    }
+    //valida el correo de pago con el de la bdd
+    function validar($mail){
+        //datos de conexión
+        $us = "wwwnerup_app";
+        $pw = "U1y(T&ZW%urJ";
+        $ser = "localhost";
+        $db = "wwwnerup_neruapp";
+        $con = new mysqli($ser, $us, $pw, $db);
+       
+        //validamos que no haya error en la conexion
+        if ($con->connect_errno) {
+            echo "Error: Fallo al conectarse a MySQL debido a: \n";
+            echo "Errno: " . $con->connect_errno . "\n";
+            echo "Error: " . $con->connect_error . "\n";
+        }
+        else {
+            //
+            // $mail="susylaonda94@gmail.com";correo de prueba bdd
+            //el mail de pago se busca en la bdd
+            $sql = "SELECT * from users where email='$mail'";
+            //se valida que no haya errores en la consulta
+            if (!$resultado = $con->query($sql)) {
+                echo "Error: La ejecución de la consulta falló debido a: \n";
+                echo "Query: " . $sql . "\n";
+                echo "Errno: " . $con->errno . "\n";
+                echo "Error: " . $con->error . "\n";
+                
+            }
+            else {
+                //si el mail no existe en la bdd se solicita que ingrese el correo de logue de neru
+                //el form esta en obra negra
+                if ($resultado->num_rows === 0) {
+                    return false;
                 }
                 else {
+                    return true;
                     //si los correos coinciden se actualiza la base
-                    update_pago($id,$mail,$status,$cantidad,$fecha);
                 }
             }
         }
@@ -220,3 +237,4 @@
 
     
 </script>
+
