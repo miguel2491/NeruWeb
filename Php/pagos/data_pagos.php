@@ -1,21 +1,20 @@
 <?php 
     //id de prueba
-        //$id="5958266171"; 
+        //exitoso
+        //$id="5960809230"; 
+        //rechazado
+        //$id=" 5960795785"; 
         $id=$_GET['collection_id'];//el folio se obtiene con un get
-   
-        //url de consulta test
-        //$url='https://api.mercadopago.com/v1/payments/search?id='.$id.'&access_token=APP_USR-104262097525406-121106-97d90022f6c0f656c2f1be7c476f7b55-499279878';
-        
-        //url de consulta neru botones
+        //$status=$_GET['collection_status'];
+        //url de consulta info id
+
         $url='https://api.mercadopago.com/v1/payments/search?id='.$id.'&access_token=APP_USR-7626992358892349-011717-eca4e780bea376ff5859b1ac90ab739a-331107277';
-        
-        
         $array=json_decode(file_get_contents($url),true);
         //se extraen los valores status, folio y mail del cliente
         $status=$array['results'][0]['status'];
         $cantidad=$array['results'][0]['transaction_details']['total_paid_amount'];
         $mail=$array['results'][0]['payer']['email'];
-        //$mail="susylaonda94@gmail.com";
+ 
         //se valida el status de pago
         
         $hoy = getdate();
@@ -46,14 +45,17 @@
         if($status=="approved" || $status=="aprobado"){
             //si es positivo se cambia el valor de estaus
             $status="1";
+            actualizar_pagos($status,$mail,$id,$cantidad,$fecha);
             //se valida que el mail del pago sea igual que el de la bdd
             
         }
         else {
             //en caso del que pago no sea aprobado se actualiza el estus y el registro en al bdd
             $status="0";
+            echo '<script language="javascript">alert("Tu pago fue rechado o esta en proceso. Intentelo más tarde.");</script>';
+            insert($id,$cantidad,$fecha,$status,$mail);
         }
-        actualizar_pagos($status,$mail,$id,$cantidad,$fecha);
+        
         
 
         function actualizar_pagos($status,$mail,$id,$cantidad,$fecha){
@@ -126,6 +128,21 @@
         $con = new mysqli($ser, $us, $pw, $db);
 
         $con = new mysqli($ser, $us, $pw, $db);
+
+        $url='https://api.mercadopago.com/v1/payments/search?id='.$id.'&access_token=APP_USR-7626992358892349-011717-eca4e780bea376ff5859b1ac90ab739a-331107277';
+        $array=json_decode(file_get_contents($url),true);
+        //se extraen los valores status, folio y mail del cliente
+        $status=$array['results'][0]['status'];
+        $cantidad=$array['results'][0]['transaction_details']['total_paid_amount'];
+        $mail=$array['results'][0]['payer']['email'];
+
+        if($status=="approved" || $status=="aprobado")
+            $status="1";
+        else{
+            $status="0";
+            $id="";
+        }
+          
         $sql2="UPDATE users SET stado_pago = '$status', folio_pago = '$id' WHERE users.email = '$mail'";
         if (!$resultado = $con->query($sql2)) {
             echo "Error: La ejecución de la consulta falló debido a: \n";
@@ -150,6 +167,12 @@
         $con = new mysqli($ser, $us, $pw, $db);
 
         $con = new mysqli($ser, $us, $pw, $db);
+
+        if($mail=="")
+            $mail="Pago rechazado";
+
+        if($cantidad=="")
+            $cantidad="0";
         $sql3="INSERT INTO pagos (id_pago, monto, fecha_pago, estatus,correo) VALUES ('$id', '$cantidad', '$fecha', '$status', '$mail')"; 
         if (!$resultado = $con->query($sql3)) {
             echo "Error: La ejecución de la consulta falló debido a: \n";
@@ -237,4 +260,3 @@
 
     
 </script>
-
