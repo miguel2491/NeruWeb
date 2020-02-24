@@ -20,6 +20,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 //=========================================================USUARIOS=========================
+/**PAGOS**/
+Route::post('/make-payment', 'PaymentsController@pay');
 //----------------------------Usuarios
 Route::resource('usuario', 'Catalogos\UsuariosController', ['except' => ['create', 'store', 'update', 'destroy', 'edit', 'show', 'GenerarPdf', 'Excel']]);
 Route::get('usuario/listado', 'Catalogos\UsuariosController@listado');
