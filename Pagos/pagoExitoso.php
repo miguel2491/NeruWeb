@@ -13,20 +13,20 @@
 
 @-webkit-keyframes rebota {
   0% {
-    top: 500px;
+    top: 580px;
     height: 50px;
   }
   10% {
-    top: 460px;
+    top: 540px;
     height: 100px;
   }
   100% {
-    top: 200px;
+    top: 280px;
     height: 100px;
   }
 }
 body{
-  background: url('img/banner.jpg') no-repeat fixed center;
+  background: url('img/banner.png') no-repeat fixed center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -36,24 +36,31 @@ body{
   color:white; 
 }
 #text-leyenda{
-    margin-top:20%;
-    color:black;
+    margin-top:2%;
+    color:white;
     font-weight:bold;
     text-transform:uppercase;
     font-size:24px;
 }
 @media screen and (max-width: 800px) {
     #pelota{
-        margin-left:30%;
+        margin-left:35%;
     }
     #logo{
         width:250px;
         height:200px;
         margin-left:20%;
     }
+    #menuHome{
+        margin-left:30%;
+    }
     #text-leyenda{
         font-size:12px;
-        margin-top:50%;
+        text-align:center;
+    }
+    .link_c{
+        background:red;
+        color:white;
     }
 }
     </style>
@@ -72,7 +79,16 @@ body{
             </div>
         </div>
         <div class="row" id="text-leyenda">
-            <label>Solo abre la aplicación en el home y podras acceder a tus secciones</label>
+            <label>Solo abre la aplicación en el home y podras acceder a tus secciones
+            <br/>Tu pago se realizó con éxito</label>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <img src="img/menu_home.png" alt="" height="350px" width="200px" id="menuHome">
+            </div>
+        </div>
+        <div style="margin-top:5%">
+            <a href="https://www.nerupsicologia.com/oficial/" class="btn btn-alert link_c">Continuar</a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
