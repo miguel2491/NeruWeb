@@ -2,7 +2,9 @@
 require '../vendor/autoload.php';
 
 \Stripe\Stripe::setApiKey("sk_test_Cprj2qWu5JVFNiHGMeiEHYk500peF4Dv8s");
-
+//APIS ACTIVAS
+//public=======>pk_live_bV6udjyyYZfi6dlrt8I0XvoI000G8PJaDZ
+//secret=======>sk_test_Cprj2qWu5JVFNiHGMeiEHYk500peF4Dv8s
 $token = $_POST["stripeToken"];
 $email  = $_POST['email'];
 $hoy = getdate();
